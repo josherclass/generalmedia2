@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Clase 1: Fundamentos del Sistema de Archivos</h1>
+            <p>💾 Explorando las bases de la organización digital | 80 min</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="objetivo" class="card primary">
+            <h2>🎯 Objetivo Principal</h2>
+            <p>Al finalizar, podrás <strong>distinguir, nombrar y aplicar</strong> los conceptos de archivo, carpeta y sistema de archivos para una organización digital eficiente.</p>
+        </section>
+
+        <section id="contenido-clave" class="card">
+            <h2>📚 Conceptos Clave y Desarrollo</h2>
+            
+            <details class="acordeon">
+                <summary>¿Dónde va la información? (Desarrollo)</summary>
+                <div class="acordeon-content">
+                    <p>La información debe residir en un soporte físico. Estos soportes son conocidos como <strong>medios de almacenamiento</strong>. Los más comunes son:</p>
+                    <ul>
+                        <li><strong>Disco Duro (HDD):</strong> Utiliza platos giratorios y un cabezal magnético para leer y escribir datos. Lento, pero con gran capacidad.</li>
+                        <li><strong>SSD (Unidad de Estado Sólido):</strong> Utiliza memorias flash. Mucho más rápido, sin partes móviles, y más resistente a golpes.</li>
+                        <li><strong>Memorias USB:</strong> Pequeñas, portátiles, usan memoria flash para el transporte de datos.</li>
+                    </ul>
+                    <p>El <strong>Sistema de Archivos</strong> es el software/regla que opera sobre estos medios.</p>
+                </div>
+            </details>
+            
+            <details class="acordeon">
+                <summary>📁 Archivo (Fichero): La Unidad de Información</summary>
+                <div class="acordeon-content">
+                    <p>El <strong>Archivo</strong> es la unidad atómica de datos. Es el libro con el contenido. Se compone de dos partes esenciales:</p>
+                    <dl>
+                        <dt>Nombre</dt>
+                        <dd>La etiqueta que elegimos para identificarlo (ej: *MiFoto*).</dd>
+                        <dt>Extensión</dt>
+                        <dd>Son las letras que siguen al punto (ej: *.jpg* o *.docx*). Indican el <strong>tipo de contenido</strong> y el programa que debe usar el sistema operativo para abrirlo.
+                        <span class="nota-extra"><strong>Ejemplo de Extensiones Comunes:</strong> 🖼️ `.png` (imagen), 📜 `.pdf` (documento), 🎶 `.mp3` (audio), 💻 `.exe` (programa ejecutable).</span>
+                        </dd>
+                    </dl>
+                </div>
+            </details>
+
+            <details class="acordeon">
+                <summary>📂 Carpeta (Directorio): El Contenedor Lógico</summary>
+                <div class="acordeon-content">
+                    <p>La <strong>Carpeta</strong> es un objeto del sistema de archivos que contiene metadatos sobre la ubicación de otros archivos y/o carpetas. <strong>No almacena datos directamente</strong>, solo referencias, actuando como un índice o un "cajón clasificador".</p>
+                    <blockquote class="analogia">
+                        <strong>Analogía:</strong> Si la información es la ropa, la carpeta es el cajón de la cómoda. El cajón no es la ropa, pero la organiza.
+                    </blockquote>
+                </div>
+            </details>
+
+            <details class="acordeon">
+                <summary>🗄️ Sistema de Archivos: El Director de Orquesta Digital</summary>
+                <div class="acordeon-content">
+                    <p>El <strong>Sistema de Archivos</strong> (File System) es la pieza central de la organización. Es la <strong>estructura lógica</strong> impuesta por el sistema operativo sobre el medio físico (HDD/SSD). Sin él, el disco sería solo un gran bloque de datos ininteligible.</p>
+                    
+                    <p><strong>Función Esencial:</strong> Actúa como una <strong>base de datos de metadatos</strong>, manteniendo un índice llamado <strong>Tabla de Asignación</strong>. Estos son los tres elementos clave que registra:</p>
+
+                    <details class="funcion-acordeon">
+                        <summary>1. 🗺️ Posición y Asignación de Espacio</summary>
+                        <div class="funcion-content">
+                            <p>Registra la <strong>posición exacta</strong> de cada archivo en el disco, es decir, qué <strong>Clusters</strong> (bloques de asignación) ocupa. Sin esta información, el sistema no sabría dónde leer o escribir los datos.</p>
+                        </div>
+                    </details>
+
+                    <details class="funcion-acordeon">
+                        <summary>2. 🏷️ Gestión de Identidad (Metadatos)</summary>
+                        <div class="funcion-content">
+                            <p>Mantiene un registro de los metadatos esenciales de cada archivo: su <strong>nombre</strong>, su <strong>tamaño</strong> actual y la <strong>fecha</strong> de su última creación o modificación. Esto es lo que vemos cuando hacemos clic derecho en un archivo y vemos sus propiedades.</p>
+                        </div>
+                    </details>
+
+                    <details class="funcion-acordeon">
+                        <summary>3. 🛡️ Control de Acceso y Permisos</summary>
+                        <div class="funcion-content">
+                            <p>Aplica las reglas de seguridad. Registra quién (qué usuario o proceso) tiene <strong>permisos</strong> para acceder, leer o escribir en ese archivo o carpeta, protegiendo la información de accesos no autorizados.</p>
+                        </div>
+                    </details>
+                    
+                    <p>En resumen, permite al Sistema Operativo: <strong>Almacenar, Organizar, Nombrar, Recuperar y Proteger</strong> la información.</p>
+                    
+                    <span class="nota-extra"><strong>Tipos Famosos:</strong> NTFS (Windows), ext4 (Linux), APFS (macOS). Cada uno tiene reglas distintas sobre el tamaño máximo de los archivos y la gestión de los Clusters.</span>
+                </div>
+            </details>
+
+            <details class="acordeon">
+                <summary>📦 Cluster (Bloque de Asignación): La Unidad Mínima de Espacio</summary>
+                <div class="acordeon-content">
+                    <p>Un <strong>Cluster</strong> es la unidad más pequeña de espacio en disco que el Sistema de Archivos puede asignar a un archivo. Está compuesto por uno o más <strong>sectores</strong> físicos contiguos.</p>
+                    <ul>
+                        <li><strong>Sectores:</strong> Son la unidad física mínima (generalmente 512 bytes).</li>
+                        <li><strong>Cluster:</strong> Es la unidad lógica de gestión (por ejemplo, 4KB, 8KB, 16KB, etc.).</li>
+                    </ul>
+                    <blockquote class="analogia">
+                        <strong>Ejemplo y Analogía:</strong> Imagina el disco como un cuaderno de cuadrícula (sectores). El Sistema de Archivos, en lugar de contar cuadritos individuales, solo te permite usar grupos fijos de 8 o 16 cuadritos (Clusters). Si tu archivo es de solo 1KB, aun así ocupará un <strong>Cluster completo de 4KB</strong>. El espacio sobrante (3KB) se llama <strong>Slack Space</strong> y se desperdicia, pero simplifica la gestión.
+                    </blockquote>
+                </div>
+            </details>
+        </section>
+
+        <section id="funciones" class="card">
+            <h2>⚙️ Desarrollo: Funciones del Sistema de Archivos</h2>
+            <p>Estas son las tres tareas vitales que el sistema realiza constantemente:</p>
+            
+            <details class="funcion-acordeon">
+                <summary>1. Almacenar y organizar datos</summary>
+                <div class="funcion-content">
+                    <p>Asigna bloques de espacio en el disco para cada archivo.</p>
+                    <blockquote class="ejemplo-bloque">
+                        <strong>Ejemplo:</strong> Cuando guardas un archivo PDF de 5MB, el sistema le asigna automáticamente los <strong>sectores libres</strong> necesarios en el disco y registra dónde empieza y dónde termina.
+                    </blockquote>
+                </div>
+            </details>
+            
+            <details class="funcion-acordeon">
+                <summary>2. Nombrar y establecer reglas</summary>
+                <div class="funcion-content">
+                    <p>Hace cumplir las normas sobre qué caracteres son válidos en los nombres y cómo se gestionan las **extensiones**.</p>
+                    <blockquote class="ejemplo-bloque">
+                        <strong>Ejemplo:</strong> El sistema NTFS de Windows <strong>prohíbe</strong> usar caracteres como `?` o `*` en los nombres de archivo. Además, si llamas a un archivo `Informe.txt`, el sistema sabe que debe abrirlo con un editor de texto.
+                    </blockquote>
+                </div>
+            </details>
+            
+            <details class="funcion-acordeon">
+                <summary>3. Gestionar el espacio</summary>
+                <div class="funcion-content">
+                    <p>Utiliza mapas de bits o tablas para saber qué sectores del disco están libres y cuáles están ocupados, evitando la sobrescritura.</p>
+                    <blockquote class="ejemplo-bloque">
+                        <strong>Ejemplo:</strong> Si <strong>borras</strong> una imagen, el sistema no la elimina inmediatamente, sino que marca los sectores de esa imagen en su tabla como **"disponibles"** para la próxima vez que necesites guardar algo. Esto asegura que nunca se sobrescriba accidentalmente un archivo en uso.
+                    </blockquote>
+                </div>
+            </details>
+        </section>
+        
+        <section id="analogia-practica" class="card primary">
+            <h2>🛋️ Dinámica de Analogía: La Habitación</h2>
+            <p>Antes de la práctica, asociaremos los conceptos a objetos físicos para reforzar la comprensión jerárquica:</p>
+            
+            <div class="analogia-grid">
+                <div class="analogia-item">
+                    <dt>📖 <strong>El Archivo:</strong></dt>
+                    <dd>Es un <strong>cuaderno o un libro individual</strong>. Contiene la información específica que necesitas (los datos). Se identifica por su "extensión" (si es de matemáticas o de lenguaje).</dd>
+                </div>
+
+                <div class="analogia-item">
+                    <dt>🗄️ <strong>La Carpeta (Directorio):</strong></dt>
+                    <dd>Es la <strong>caja o el cajón</strong>. Su único propósito es agrupar y organizar los libros temáticamente. La caja por sí misma no contiene conocimiento, solo una lista de lo que está dentro.</dd>
+                </div>
+
+                <div class="analogia-item">
+                    <dt>👩‍🏫 <strong>El Sistema de Archivos:</strong></dt>
+                    <dd>Es el <strong>bibliotecario</strong> y las <strong>reglas de la estantería</strong>. Determina dónde debe ir cada caja, qué etiquetas son válidas, y mantiene el inventario de espacio disponible en toda la habitación (el disco duro).</dd>
+                </div>
+            </div>
+        </section>
+
+        <section id="estructura" class="card structure-table">
+            <h2>📝 Práctica</h2>
+            <table>
+                <thead>
+                    <tr><th>Etapa</th><th>Tiempo</th><th>Actividad y Estrategia Didáctica</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Práctica</strong></td><td>15 min</td><td><a href="#modal-practica" class="boton-practica">Iniciar Práctica: Estructura Lógica</a></td></tr>
+                </tbody>
+            </table>
+            
+            <p class="nota-final">El ejercicio final permite aplicar los conocimientos de jerarquía. Haz clic en el botón para ver los pasos.</p>
+        </section>
+    </main>
+
+    <div id="modal-practica" class="modal-bg">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <h3>📝 Práctica: Creando una Estructura Lógica</h3>
+            <p><strong>Instrucción:</strong> En parejas, diseñen un mapa mental o esquema jerárquico (usando un editor de texto o papel) que contenga la estructura óptima de carpetas para guardar todo su material digital de la carrera/escuela y sus documentos personales.</p>
+            
+            <h4>Ejemplo de Jerarquía (Ruta lógica):</h4>
+            <pre>
+                Mi_PC/
+                ├── UNIVERSIDAD/
+                │   ├── SEMESTRE_1/
+                │   │   ├── SISTEMAS_OPERATIVOS/
+                │   │   │   ├── Apuntes/
+                │   │   │   └── Trabajos/
+                │   │   └── ALGEBRA/
+                └── PERSONAL/
+                    ├── Fotos_2024/
+                    └── Musica/
+            </pre>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Material Educativo de Sistemas.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
