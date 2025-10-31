@@ -1,0 +1,467 @@
+/* ====================================================================== */
+/* 1. RESET Y ESTRUCTURA BASE */
+/* ====================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta de Colores Moderna (Modo Claro) */
+    --color-primary: #34495e;     /* Azul Oscuro (Pizarra) */
+    --color-secondary: #2ecc71;  /* Verde (Éxito/Acción) */
+    --color-accent: #e74c3c;     /* Rojo Ladrillo (Alerta/Nota) */
+    --color-background: #ecf0f1;  /* Gris Claro Suave */
+    --color-text: #2c3e50;        /* Gris Oscuro para Texto */
+    --color-card-bg: white;
+    --color-card-shadow: rgba(0, 0, 0, 0.05);
+}
+
+body {
+    /* Fuentes: Lato para cuerpo */
+    font-family: 'Lato', sans-serif; 
+    line-height: 1.7;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px 0;
+}
+
+/* ====================================================================== */
+/* 2. ENCABEZADO Y PIE DE PÁGINA */
+/* ====================================================================== */
+header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.2);
+    position: relative; 
+}
+
+header h1 {
+    /* Fuente: Montserrat para títulos */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.25em;
+    opacity: 0.9;
+}
+
+footer {
+    background-color: var(--color-text); 
+    color: #bdc3c7;
+    text-align: center;
+    padding: 25px 0;
+    font-size: 0.9em;
+    margin-top: 50px;
+}
+
+
+/* ====================================================================== */
+/* 3. TARJETAS DE CONTENIDO (CARDS) */
+/* ====================================================================== */
+.card {
+    background-color: var(--color-card-bg);
+    padding: 35px;
+    margin: 40px 0;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--color-card-shadow);
+    border-left: 7px solid var(--color-primary);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card.primary {
+    border-left-color: var(--color-secondary);
+    background-color: #f0fff5; 
+}
+
+.card h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-primary);
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+/* ====================================================================== */
+/* 4. ACORDEÓN INTERACTIVO (DETAILS) - CONCEPTOS CLAVE */
+/* ====================================================================== */
+.acordeon {
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.acordeon summary {
+    display: block;
+    padding: 20px 25px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    color: var(--color-text);
+    background-color: #fcfcfc;
+    list-style: none;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.acordeon summary:hover {
+    background-color: #f0f0f0;
+}
+
+/* Indicador de Acordeón */
+.acordeon summary::before {
+    content: '+';
+    font-size: 1.3em;
+    margin-right: 15px;
+    color: var(--color-secondary);
+    font-weight: 900;
+}
+
+.acordeon[open] > summary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.acordeon[open] > summary::before {
+    content: '−';
+    color: white;
+}
+
+.acordeon-content {
+    padding: 25px;
+    background-color: var(--color-card-bg);
+}
+
+.nota-extra {
+    display: block;
+    background-color: #fef5f4;
+    border-left: 5px solid var(--color-accent); 
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 0.95em;
+    color: var(--color-accent);
+    border-radius: 4px;
+}
+
+.analogia {
+    border-left: 5px solid var(--color-secondary);
+    padding: 18px;
+    margin: 25px 0;
+    background-color: #f7fffb;
+    color: #1a7e4b;
+    border-radius: 4px;
+}
+
+/* ====================================================================== */
+/* 4B. MINI-ACORDEONES PARA FUNCIONES */
+/* ====================================================================== */
+
+.funcion-acordeon {
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    margin-top: 15px; /* Espacio entre funciones */
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.funcion-acordeon summary {
+    display: block;
+    padding: 15px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    color: var(--color-primary); /* Título de la función en color primario */
+    background-color: #f8f9fa; /* Fondo claro */
+    list-style: none;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.funcion-acordeon summary:hover {
+    background-color: #e2e6ea;
+}
+
+/* Icono de la función: Usar el color secundario (verde) */
+.funcion-acordeon summary::before {
+    content: '⚙️';
+    margin-right: 10px;
+}
+
+.funcion-acordeon[open] > summary {
+    background-color: var(--color-secondary); /* Resaltar en verde al abrir */
+    color: white;
+}
+
+.funcion-acordeon[open] > summary::before {
+    content: '✅'; /* Icono de check al abrir */
+}
+
+.funcion-content {
+    padding: 15px 20px;
+    background-color: var(--color-card-bg);
+    border-top: 1px dashed #e9ecef;
+}
+
+/* Estilo específico para el bloque de ejemplo */
+.ejemplo-bloque {
+    border-left: 4px solid #adb5bd; /* Borde gris sutil */
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: #fcfcfc;
+    color: #555;
+    font-size: 0.95em;
+}
+
+/* ====================================================================== */
+/* 4C. SECCIÓN DE ANALOGÍA */
+/* ====================================================================== */
+#analogia-practica .analogia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px; /* Espacio entre las tarjetas de analogía */
+    margin-top: 30px;
+}
+
+.analogia-item {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-bottom: 5px solid var(--color-primary); /* Borde inferior temático */
+    transition: transform 0.2s ease-out;
+}
+
+.analogia-item:hover {
+    transform: translateY(-5px);
+}
+
+.analogia-item dt {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3em;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.analogia-item dt strong {
+    margin-left: 8px; /* Espacio entre el ícono y el texto */
+}
+
+.analogia-item dd {
+    font-size: 0.95em;
+    color: #495057;
+    margin-left: 0; /* Reiniciar margin por defecto de dd */
+}
+
+/* Colores para cada analogía */
+.analogia-item:nth-child(1) { /* Archivo */
+    border-bottom-color: #f1c40f; /* Amarillo */
+}
+.analogia-item:nth-child(2) { /* Carpeta */
+    border-bottom-color: #3498db; /* Azul */
+}
+.analogia-item:nth-child(3) { /* Sistema de Archivos */
+    border-bottom-color: #9b59b6; /* Púrpura */
+}
+
+
+/* ====================================================================== */
+/* 5. TABLA Y BOTÓN DE PRÁCTICA */
+/* ====================================================================== */
+.structure-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    border: 1px solid #dcdde1; 
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.structure-table th, .structure-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.structure-table th {
+    background-color: #e9eef2;
+    color: var(--color-text);
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.structure-table tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+.boton-practica {
+    display: inline-block;
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+}
+
+.boton-practica:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+/* ====================================================================== */
+/* 6. MODAL (VENTANA EMERGENTE) */
+/* ====================================================================== */
+.modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    z-index: 9999;
+}
+
+.modal-bg:target {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 650px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    
+    transform: scale(0.8);
+    transition: transform 0.4s ease-out;
+}
+
+.modal-bg:target .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h3 {
+    color: var(--color-primary);
+    margin-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.modal-content pre {
+    background-color: #f4f6f8;
+    padding: 20px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Consolas', monospace;
+    font-size: 0.95em;
+    border: 1px solid #dcdde1;
+    margin-top: 15px;
+}
+
+/* NUEVOS ESTILOS PARA EL BOTÓN DE CIERRE DEL MODAL */
+.close-modal {
+    position: absolute;
+    top: -15px; /* Mover el botón fuera del contenedor blanco */
+    right: -15px;
+    font-size: 2em; /* Tamaño grande para el icono */
+    color: white; /* Color blanco para contraste con el fondo oscuro */
+    background-color: var(--color-accent); /* Fondo rojo para hacerlo visible */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Forma circular */
+    text-decoration: none;
+    line-height: 40px; /* Centrar el texto verticalmente */
+    text-align: center;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    font-weight: 700;
+    z-index: 10000; /* Asegurar que esté encima de todo */
+}
+
+.close-modal:hover {
+    background-color: #c0392b; /* Rojo más oscuro al pasar el ratón */
+    transform: rotate(90deg); /* Animación al pasar el ratón */
+}
+
+
+/* ====================================================================== */
+/* 7. MEDIA QUERIES (RESPONSIVE DESIGN) */
+/* ====================================================================== */
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2em;
+    }
+    
+    .card {
+        padding: 25px;
+    }
+
+    /* Manejo de la Tabla */
+    .structure-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .structure-table table {
+        display: block;
+        width: 600px; 
+    }
+
+    .structure-table th, .structure-table td {
+        white-space: nowrap;
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+
+    #analogia-practica .analogia-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+    header p {
+        font-size: 1.1em;
+    }
+    
+    .card h2 {
+        font-size: 1.6em;
+    }
+}
