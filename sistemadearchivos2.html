@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clase 2</title>
+    
+    <style>
+        /* Paleta de colores ajustada al MODO OSCURO (Deep Dark Blue):
+           Fondo principal: #121212 (Negro muy oscuro)
+           Fondo de secciones: #1f2937 (Azul oscuro principal)
+           Texto general: #e5e7eb (Gris claro suave)
+           Color de acento (NARANJA CÁLIDO): #facc15 (¡NUEVO ACENTO!)
+           Bordes/Líneas: #374151 (Gris oscuro para separación)
+           Éxito/Ventaja: #34d399 (Verde claro para dark mode)
+           Error/Desventaja: #f87171 (Rojo claro para dark mode)
+        */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #121212; 
+            color: #e5e7eb; 
+        }
+
+        header, section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #1f2937; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5); 
+        }
+        
+        /* HEADER */
+        header {
+            background-color: #1f2937;
+            color: #e5e7eb; 
+        }
+        
+        /* Títulos de encabezado y secciones en NARANJA CÁLIDO */
+        h1 { 
+            color: #facc15; /* Acento Naranja */
+        }
+        
+        header p {
+             color: #e5e7eb; 
+        }
+
+        h2 { 
+            border-bottom: 2px solid #374151; 
+            padding-bottom: 5px; 
+            color: #facc15; /* Acento Naranja */
+        }
+
+        /* Estilos para la sección de Conceptos */
+        #conceptos-clave {
+            background-color: #374151;
+            border-left: 5px solid #facc15; /* Borde Naranja */
+            padding: 20px;
+        }
+
+        /* Estilo interactivo para los títulos de conceptos */
+        .concepto-titulo {
+            cursor: pointer;
+            color: #facc15; /* Acento Naranja */
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .concepto-titulo::before {
+            content: '+'; 
+            font-size: 1.2em;
+            margin-right: 10px;
+            transition: transform 0.2s;
+            color: #e5e7eb; 
+        }
+        
+        .concepto-titulo.abierto::before {
+            content: '−'; 
+        }
+        
+        /* Contenido oculto por defecto */
+        .concepto-contenido {
+            display: none;
+            padding-left: 20px;
+            border-left: 2px dotted #374151;
+            margin-top: 5px;
+        }
+        
+        .concepto-contenido.abierto {
+            display: block;
+        }
+
+        /* Controles de Vista */
+        #selector-sistema {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #374151;
+            border-radius: 4px;
+            display: flex;
+            flex-wrap: wrap; 
+            align-items: center;
+        }
+        #selector-sistema button {
+            padding: 8px 15px;
+            margin-right: 10px; 
+            margin-top: 5px; 
+            border: 1px solid #374151;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #1f2937;
+            color: #e5e7eb;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        
+        /* Botón Activo con Acento Naranja */
+        #selector-sistema button.activo {
+            background-color: #facc15;
+            color: #121212;
+            border-color: #facc15; 
+        }
+        #selector-sistema button:not(.activo):hover {
+            background-color: #374151;
+        }
+
+
+        /* Estilo para el Árbol de Directorios */
+        #visualizador-arbol {
+            background: #374151;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            min-height: 280px; 
+            border: 1px solid #374151; 
+        }
+
+        .arbol-sistema {
+            display: none; 
+        }
+
+        .arbol-sistema.activo {
+            display: block; 
+        }
+        
+        .carpeta, .archivo {
+            list-style: none; 
+            cursor: pointer;
+            line-height: 1.8;
+            padding-left: 15px;
+        }
+
+        /* Nombre de Carpetas en Naranja */
+        .carpeta > .nombre-carpeta {
+            font-weight: bold;
+            color: #facc15;
+            position: relative;
+            display: inline-block;
+            padding-left: 20px;
+        }
+
+        .carpeta > .nombre-carpeta::before {
+            content: '▶'; 
+            position: absolute;
+            left: 0;
+            transition: transform 0.2s;
+            color: #e5e7eb;
+        }
+
+        .carpeta.abierto > .nombre-carpeta::before {
+            content: '▼'; 
+        }
+
+        .carpeta > ul {
+            display: none;
+            padding-left: 20px;
+            border-left: 1px dashed #374151; 
+        }
+
+        .carpeta.abierto > ul {
+            display: block;
+        }
+
+        .archivo {
+            color: #e5e7eb; 
+            font-style: italic;
+            cursor: default;
+        }
+
+        #visor-ruta {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #374151; 
+            background-color: #374151;
+            border-radius: 4px;
+        }
+
+        /* Estilos para Pestañas (Sistemas de Archivos) */
+        .tabs {
+            overflow: hidden;
+            border: 1px solid #374151; 
+            background-color: #1f2937;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tablink {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            color: #e5e7eb;
+        }
+
+        .tablink:hover {
+            background-color: #374151;
+        }
+
+        /* Pestaña activa con Acento Naranja */
+        .tablink.activo {
+            background-color: #1f2937;
+            border-bottom: 3px solid #facc15;
+            color: #facc15;
+        }
+
+        .tabcontent {
+            padding: 20px;
+            border: 1px solid #374151; 
+            border-top: none;
+            background-color: #1f2937;
+            display: none; 
+        }
+        .tabcontent.activo {
+            display: block;
+        }
+        
+        .tabla-comparativa {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tabla-comparativa th, .tabla-comparativa td {
+            border: 1px solid #374151; 
+            padding: 10px;
+            text-align: left;
+        }
+        
+        /* Encabezado de Tabla en Naranja */
+        .tabla-comparativa th {
+            background-color: #facc15;
+            color: #121212;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        .tabla-comparativa tr:nth-child(even) {
+            background-color: #374151;
+        }
+        .ventaja { color: #34d399; font-weight: bold; }
+        .desventaja { color: #f87171; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>El Explorador de Archivos 📂</h1>
+        <p>Comprende la estructura jerárquica (árbol), las rutas y los sistemas de archivos.</p>
+    </header>
+
+    <section id="conceptos-clave">
+        <h2>✨ Conceptos Clave</h2>
+        
+        <div class="concepto-item">
+            <h3 class="concepto-titulo" data-target="contenido-raiz">1. El Directorio Raíz (Root Directory)</h3>
+            <div id="contenido-raiz" class="concepto-contenido">
+                <p>Es el <strong>punto de partida</strong> o la <strong>base</strong> de toda la estructura de archivos en un sistema operativo. Es la primera carpeta de todas y <strong>nunca tiene un directorio padre</strong>.</p>
+                <ul>
+                    <li>En sistemas Windows, se representa típicamente con la unidad y dos puntos: <strong><code>C:\</code></strong></li>
+                    <li>En sistemas tipo Unix (Linux/Mac), se representa con una sola barra: <strong><code>/</code></strong></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="concepto-item">
+            <h3 class="concepto-titulo" data-target="contenido-arbol">2. El Árbol de Directorios</h3>
+            <div id="contenido-arbol" class="concepto-contenido">
+                <p>La estructura de directorios se llama "árbol" porque el Directorio Raíz está en la parte superior (la raíz invertida) y de él se desprenden todas las demás carpetas, subcarpetas y archivos.</p>
+                <p>Es una estructura <strong>jerárquica</strong>, donde cada archivo o carpeta (excepto la raíz) tiene un padre.</p>
+            </div>
+        </div>
+
+        <div class="concepto-item">
+            <h3 class="concepto-titulo" data-target="contenido-ruta">3. La Ruta de Archivo (Path)</h3>
+            <div id="contenido-ruta" class="concepto-contenido">
+                <p>La ruta es la <strong>dirección exacta</strong> que indica la ubicación de un archivo o carpeta dentro del Árbol de Directorios. Es como la dirección de tu casa.</p>
+                <h4>Tipos de Rutas:</h4>
+                <ul>
+                    <li><strong>Ruta Absoluta:</strong> Es la dirección <strong>completa</strong> que empieza siempre desde el Directorio Raíz. <br>
+                        Ejemplo (Windows): <code>C:\Usuarios\MiNombre\Documentos\archivo.txt</code></li>
+                    <li><strong>Ruta Relativa:</strong> Es la dirección que se traza <strong>desde tu ubicación actual</strong> (carpeta de trabajo).</li>
+                </ul>
+                <p><strong>👉 ¡Compruébalo!</strong> Haz clic en cualquier archivo en el visualizador de abajo para ver su Ruta Absoluta.</p>
+            </div>
+        </div>
+
+        <div class="concepto-item">
+            <h3 class="concepto-titulo" data-target="contenido-journaling">4. El Journaling (Registro por Diario)</h3>
+            <div id="contenido-journaling" class="concepto-contenido">
+                <p>El *journaling* es una característica que añade <strong>robustez y velocidad de recuperación</strong> a un sistema de archivos (FS).</p>
+                <p>Funciona creando un registro (diario o "journal") de todas las operaciones que el sistema planea realizar (mover, escribir, eliminar). Las operaciones se completan en dos pasos:</p>
+                <ol>
+                    <li>📝 <strong>Registro:</strong> El sistema anota en el *journal*: "Voy a mover el archivo X a la carpeta Y".</li>
+                    <li>✅ <strong>Ejecución:</strong> El sistema realiza el movimiento.</li>
+                </ol>
+                <h4>Ejemplo de Falla:</h4>
+                <p>Si hay un corte de energía 🔌 después del paso 1, pero antes del paso 2, el sistema no pierde el control. Al reiniciarse, el sistema revisa el *journal* y ve que la operación no se completó, permitiéndole <strong>deshacer la operación incompleta (rollback)</strong> de forma segura y casi instantánea. Esto evita la necesidad de un escaneo completo y largo del disco.</p>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+
+    <main>
+        <section id="arbol-directorio">
+            <h2>🌳 Visualizador Interactivo del Árbol de Directorios</h2>
+            <p>Selecciona un sistema para ver su <strong>Directorio Raíz</strong> y navega para construir la <strong>Ruta Absoluta</strong>.</p>
+
+            <div id="selector-sistema">
+                <strong>Sistema Operativo:</strong>
+                <button class="selector-btn activo" data-sistema="windows">Windows (C:\)</button>
+                <button class="selector-btn" data-sistema="unix">Unix/Linux (/)</button>
+                <button class="selector-btn" data-sistema="macos">macOS (/)</button>
+                <button class="selector-btn" data-sistema="chromeos">ChromeOS (/)</button>
+            </div>
+            
+            <div id="visualizador-arbol">
+                
+                <ul class="carpeta abierto arbol-sistema activo" id="raiz-windows" data-nombre="C:\">
+                    <span class="nombre-carpeta">C:\ (Raíz Windows)</span>
+                    <ul class="carpeta" data-nombre="Usuarios">
+                        <span class="nombre-carpeta">Usuarios</span>
+                        <ul class="carpeta" data-nombre="MiNombre">
+                            <span class="nombre-carpeta">MiNombre</span>
+                            <ul class="carpeta" data-nombre="Documentos">
+                                <span class="nombre-carpeta">Documentos</span>
+                                <li class="archivo" data-nombre="Trabajo.docx">📄 Trabajo.docx</li>
+                            </ul>
+                        </ul>
+                    </ul>
+                    <ul class="carpeta" data-nombre="Archivos de Programa">
+                        <span class="nombre-carpeta">Archivos de Programa</span>
+                    </ul>
+                </ul>
+
+                <ul class="carpeta abierto arbol-sistema" id="raiz-unix" data-nombre="/">
+                    <span class="nombre-carpeta">/ (Raíz Unix/Linux)</span>
+                    <ul class="carpeta" data-nombre="home">
+                        <span class="nombre-carpeta">home</span>
+                        <ul class="carpeta" data-nombre="usuario-clase">
+                            <span class="nombre-carpeta">usuario-clase</span>
+                            <ul class="carpeta" data-nombre="Docs">
+                                <span class="nombre-carpeta">Docs</span>
+                                <li class="archivo" data-nombre="script.sh">📜 script.sh</li>
+                            </ul>
+                        </ul>
+                    </ul>
+                    <ul class="carpeta" data-nombre="etc">
+                        <span class="nombre-carpeta">etc</span>
+                        <li class="archivo" data-nombre="config.conf">⚙️ config.conf</li>
+                    </ul>
+                </ul>
+
+                <ul class="carpeta abierto arbol-sistema" id="raiz-macos" data-nombre="/">
+                    <span class="nombre-carpeta">/ (Raíz macOS)</span>
+                    <ul class="carpeta" data-nombre="Users">
+                        <span class="nombre-carpeta">Users</span>
+                        <ul class="carpeta" data-nombre="MiUsuarioMac">
+                            <span class="nombre-carpeta">MiUsuarioMac</span>
+                            <ul class="carpeta" data-nombre="Documents">
+                                <span class="nombre-carpeta">Documents</span>
+                                <li class="archivo" data-nombre="Proyecto.pages">📄 Proyecto.pages</li>
+                            </ul>
+                            <ul class="carpeta" data-nombre="Desktop">
+                                <span class="nombre-carpeta">Desktop</span>
+                            </ul>
+                        </ul>
+                    </ul>
+                    <ul class="carpeta" data-nombre="Applications">
+                        <span class="nombre-carpeta">Applications</span>
+                        <li class="archivo" data-nombre="App.app">⚙️ App.app</li>
+                    </ul>
+                </ul>
+
+                <ul class="carpeta abierto arbol-sistema" id="raiz-chromeos" data-nombre="/">
+                    <span class="nombre-carpeta">/ (Raíz ChromeOS)</span>
+                    <ul class="carpeta" data-nombre="home">
+                        <span class="nombre-carpeta">home (Usuario)</span>
+                        <ul class="carpeta" data-nombre="MyFiles">
+                            <span class="nombre-carpeta">MyFiles</span>
+                            <ul class="carpeta" data-nombre="Downloads">
+                                <span class="nombre-carpeta">Downloads</span>
+                                <li class="archivo" data-nombre="image.jpg">🖼️ image.jpg</li>
+                            </ul>
+                        </ul>
+                    </ul>
+                    <ul class="carpeta" data-nombre="etc">
+                        <span class="nombre-carpeta">etc (Sistema)</span>
+                    </ul>
+                </ul>
+
+            </div>
+            
+            <div id="visor-ruta">
+                <h3>Ruta Absoluta:</h3>
+                <p id="ruta-actual">C:\</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="sistemas-archivos">
+            <h2>💾 Tipos de Sistemas de Archivos (FAT, NTFS, Ext4, APFS)</h2>
+            <p>Selecciona una pestaña para ver el detalle de cada sistema operativo o haz clic en <strong>Tabla Comparativa</strong>.</p>
+            
+            <div class="tabs">
+                <button class="tablink activo" data-tab="NTFS" onclick="abrirSistema(event, 'NTFS')">NTFS (Windows)</button>
+                <button class="tablink" data-tab="FAT" onclick="abrirSistema(event, 'FAT')">FAT32/exFAT (Universal)</button>
+                <button class="tablink" data-tab="Ext4" onclick="abrirSistema(event, 'Ext4')">Ext4 (Linux)</button>
+                <button class="tablink" data-tab="APFS" onclick="abrirSistema(event, 'APFS')">APFS (macOS)</button>
+                <button class="tablink" data-tab="Tabla" onclick="abrirSistema(event, 'Tabla')">⭐ Tabla Comparativa</button>
+            </div>
+
+            <div id="NTFS" class="tabcontent activo">
+                <h3>NTFS (New Technology File System) - Windows</h3>
+                <ul>
+                    <li><span class="ventaja">Ventajas:</span> Seguridad robusta (permisos a nivel de archivo), soporta <strong>archivos y volúmenes masivos</strong>, sistema de *journaling* (autorreparación rápida).</li>
+                    <li><span class="ventaja">Ventajas:</span> Permite la compresión y el cifrado nativo de archivos.</li>
+                    <li><span class="desventaja">Desventajas:</span> <strong>Poca compatibilidad nativa</strong> con macOS y Linux (solo lectura o requiere software adicional).</li>
+                    <li><span class="desventaja">Desventajas:</span> Uso intensivo de metadatos, no ideal para dispositivos pequeños/antiguos.</li>
+                </ul>
+            </div>
+
+            <div id="FAT" class="tabcontent">
+                <h3>FAT32 / exFAT - Universal</h3>
+                <ul>
+                    <li><span class="ventaja">Ventajas:</span> <strong>Compatibilidad universal</strong> (funciona en casi cualquier dispositivo: PC, Mac, Linux, Android, consolas).</li>
+                    <li><span class="ventaja">Ventajas:</span> Baja sobrecarga (overhead), lo que lo hace ideal para tarjetas SD y USB.</li>
+                    <li><span class="desventaja">Desventajas (FAT32):</span> Límite estricto de <strong>4 GB por archivo</strong>. No soporta *journaling* (más vulnerable a la corrupción).</li>
+                    <li><span class="desventaja">Desventajas (exFAT):</span> No tiene soporte nativo para características de seguridad como permisos.</li>
+                </ul>
+            </div>
+
+            <div id="Ext4" class="tabcontent">
+                <h3>Ext4 (Fourth Extended Filesystem) - Linux</h3>
+                <ul>
+                    <li><span class="ventaja">Ventajas:</span> Muy <strong>estable y robusto</strong>, utiliza *journaling* eficiente, pre-asignación de espacio para rendimiento.</li>
+                    <li><span class="ventaja">Ventajas:</span> <strong>Diseño modular</strong> y de código abierto. Soporta volúmenes y archivos muy grandes.</li>
+                    <li><span class="desventaja">Desventajas:</span> <strong>Casi nula compatibilidad nativa</strong> con Windows y macOS (requiere software).</li>
+                    <li><span class="desventaja">Desventajas:</span> Requiere utilidades complejas para su mantenimiento y reparación.</li>
+                </ul>
+            </div>
+
+            <div id="APFS" class="tabcontent">
+                <h3>APFS (Apple File System) - macOS / iOS</h3>
+                <ul>
+                    <li><span class="ventaja">Ventajas:</span> <strong>Optimizado para SSDs</strong> y almacenamiento Flash. Muy rápido en lectura/escritura en sistemas Apple.</li>
+                    <li><span class="ventaja">Ventajas:</span> <strong>Clonación de archivos rápida</strong> (instantánea) y cifrado robusto.</li>
+                    <li><span class="desventaja">Desventajas:</span> <strong>Exclusivo de Apple</strong>. Windows y la mayoría de Linux no pueden leerlo ni escribir en él.</li>
+                    <li><span class="desventaja">Desventajas:</span> Puede ser lento en discos duros tradicionales (HDDs).</li>
+                </ul>
+            </div>
+            
+            <div id="Tabla" class="tabcontent">
+                <h3>Tabla Comparativa de Sistemas de Archivos</h3>
+                <table class="tabla-comparativa">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>NTFS (Windows)</th>
+                            <th>FAT32/exFAT (Universal)</th>
+                            <th>Ext4 (Linux)</th>
+                            <th>APFS (macOS)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sistema Operativo Principal</td>
+                            <td><strong>Windows</strong></td>
+                            <td>Universal (USB/SD)</td>
+                            <td><strong>Linux</strong></td>
+                            <td><strong>macOS/iOS</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Directorio Raíz</td>
+                            <td>C:\, D:\, etc.</td>
+                            <td>Depende del SO host</td>
+                            <td>/ (Raíz única)</td>
+                            <td>/ (Raíz única)</td>
+                        </tr>
+                        <tr>
+                            <td>Journaling (Protección de Datos)</td>
+                            <td class="ventaja">Sí (Excelente)</td>
+                            <td class="desventaja">No (FAT32), No (exFAT)</td>
+                            <td class="ventaja">Sí (Muy robusto)</td>
+                            <td class="ventaja">Sí</td>
+                        </tr>
+                        <tr>
+                            <td>Límite de Tamaño de Archivo</td>
+                            <td><strong>256 TB</strong> (Muy Alto)</td>
+                            <td><strong>4 GB</strong> (FAT32) / <strong>16 EB</strong> (exFAT)</td>
+                            <td><strong>16 TB</strong> a <strong>16 EB</strong></td>
+                            <td><strong>8 EB</strong> (Enorme)</td>
+                        </tr>
+                        <tr>
+                            <td>Seguridad/Permisos (ACL)</td>
+                            <td class="ventaja">Sí (Nivel de archivo)</td>
+                            <td class="desventaja">No</td>
+                            <td class="ventaja">Sí (Completo)</td>
+                            <td class="ventaja">Sí (Completo)</td>
+                        </tr>
+                        <tr>
+                            <td>Compatibilidad Universal</td>
+                            <td class="desventaja">Baja (Necesita software para Mac/Linux)</td>
+                            <td class="ventaja"><strong>Alta</strong> (Lo mejor para USB)</td>
+                            <td class="desventaja">Baja (Necesita software para Windows/Mac)</td>
+                            <td class="desventaja">Baja (Exclusivo de Apple)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rutaActualElemento = document.getElementById('ruta-actual');
+            const selectorBotones = document.querySelectorAll('.selector-btn');
+            const conceptosTitulos = document.querySelectorAll('.concepto-titulo'); 
+            
+            let separadorRuta = '\\'; 
+            
+            // Función para alternar la vista Windows/Unix/macOS/ChromeOS
+            const alternarVistaSistema = (sistema) => {
+                const arboles = document.querySelectorAll('.arbol-sistema');
+                arboles.forEach(arbol => {
+                    arbol.classList.remove('activo');
+                });
+                
+                document.getElementById(`raiz-${sistema}`).classList.add('activo');
+                
+                // Determina el separador basado en el sistema
+                separadorRuta = (sistema === 'windows') ? '\\' : '/';
+                
+                selectorBotones.forEach(btn => btn.classList.remove('activo'));
+                document.querySelector(`.selector-btn[data-sistema="${sistema}"]`).classList.add('activo');
+                
+                // Reinicia la ruta mostrada
+                rutaActualElemento.textContent = (sistema === 'windows') ? 'C:\\' : '/';
+
+                asignarListeners();
+            };
+
+            // Manejar el clic en los títulos de conceptos (Accordion)
+            conceptosTitulos.forEach(titulo => {
+                titulo.addEventListener('click', () => {
+                    const targetId = titulo.dataset.target;
+                    const contenido = document.getElementById(targetId);
+                    
+                    titulo.classList.toggle('abierto');
+                    contenido.classList.toggle('abierto');
+                });
+            });
+
+
+            // Event listeners para los botones de selección
+            selectorBotones.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    alternarVistaSistema(btn.dataset.sistema);
+                });
+            });
+
+            // Función principal para manejar el clic y calcular la ruta (lógica Unix/Windows se mantiene)
+            const manejarClicArbol = (e) => {
+                const elemento = e.currentTarget;
+                e.stopPropagation(); 
+                
+                const elementoPadre = elemento.parentElement;
+                if (elementoPadre.classList.contains('carpeta')) {
+                    elementoPadre.classList.toggle('abierto');
+                }
+
+                let ruta = [];
+                let actual = elemento.parentElement; 
+                
+                if (elemento.classList.contains('archivo')) {
+                    ruta.push(elemento.dataset.nombre);
+                    actual = elemento.closest('.carpeta'); 
+                }
+
+                while (actual && !actual.id.startsWith('raiz-')) {
+                    if (actual.dataset.nombre) {
+                        ruta.push(actual.dataset.nombre);
+                    }
+                    actual = actual.parentElement.closest('.carpeta');
+                }
+                
+                if (actual && actual.id.startsWith('raiz-')) {
+                     ruta.push(actual.dataset.nombre);
+                }
+
+                const rutaFinal = ruta.reverse().join(separadorRuta);
+                
+                if (separadorRuta === '/' && rutaFinal.endsWith('//')) {
+                    rutaActualElemento.textContent = '/';
+                } else {
+                    rutaActualElemento.textContent = rutaFinal;
+                }
+            };
+            
+            // Asignar el listener a todos los elementos clicables
+            const asignarListeners = () => {
+                document.querySelectorAll('.carpeta > .nombre-carpeta, .archivo').forEach(elemento => {
+                    elemento.removeEventListener('click', manejarClicArbol); 
+                    elemento.addEventListener('click', manejarClicArbol);
+                });
+            };
+
+            // Inicializar listeners y vista por defecto
+            asignarListeners();
+
+            // Función para las pestañas de Sistemas de Archivos (sin cambios)
+            window.abrirSistema = (evt, sistemaNombre) => {
+                const tabcontent = document.getElementsByClassName("tabcontent");
+                for (let i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].classList.remove("activo");
+                }
+
+                const tablinks = document.getElementsByClassName("tablink");
+                for (let i = 0; i < tablinks.length; i++) {
+                    tablinks[i].classList.remove("activo");
+                }
+
+                document.getElementById(sistemaNombre).classList.add("activo");
+                evt.currentTarget.classList.add("activo");
+            };
+            
+            // Asegurar que la primera pestaña esté activa al cargar (NTFS)
+            document.getElementById('NTFS').classList.add('activo');
+        });
+    </script>
+</body>
+</html>
