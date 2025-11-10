@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Linux</title>
+    
+    <style>
+        /* Variables de Color inspiradas en Terminal (Dark Mode) */
+        :root {
+            --color-bg-main: #1e1e1e; /* Fondo principal oscuro */
+            --color-bg-secondary: #252526; /* Fondo de contenedores */
+            --color-text-primary: #d4d4d4; /* Texto blanco suave */
+            --color-accent: #00ff7f; /* Verde Menta para énfasis */
+            --color-header: #333333; /* Color de encabezado más oscuro */
+            --color-code-bg: #3a3a3a; /* Fondo para comandos */
+            --color-code-text: #00ff7f; /* Texto de comandos */
+        }
+
+        body {
+            font-family: 'Cascadia Code', Consolas, Monospace; /* Fuente nueva */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg-main);
+            color: var(--color-text-primary);
+        }
+
+        header {
+            background: var(--color-header);
+            color: var(--color-accent);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        header h1 {
+            color: var(--color-text-primary);
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Estilo para el bloque de enlace */
+        .resource-link {
+            background-color: #333333;
+            border: 1px solid var(--color-accent);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .resource-link p {
+            color: var(--color-text-primary);
+        }
+        .resource-link a {
+            color: var(--color-accent);
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .resource-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Estilo para las Pestañas (Tabs) */
+        .tabs {
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-accent);
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            color: var(--color-text-primary);
+        }
+
+        .tab-button:hover {
+            background-color: #3a3a3a;
+        }
+
+        .tab-button.active {
+            background-color: var(--color-accent);
+            color: var(--color-bg-main);
+        }
+
+        .tab-content {
+            display: none; /* Oculto por defecto */
+            padding: 6px 12px;
+            border-top: none;
+        }
+
+        /* Estilo para las Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 30px; /* Separación entre tablas */
+        }
+
+        th, td {
+            border: 1px solid #444444; /* Borde de tabla oscuro */
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--color-accent);
+            color: var(--color-bg-main);
+        }
+
+        tr:nth-child(even) {
+            background-color: #303030; /* Fila par */
+        }
+        tr:nth-child(odd) {
+            background-color: var(--color-bg-secondary); /* Fila impar */
+        }
+
+        code {
+            background-color: var(--color-code-bg);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: inherit; /* Utiliza Cascadia Code */
+            color: var(--color-code-text);
+        }
+        
+        h2 {
+            color: var(--color-accent);
+            border-bottom: 1px dotted #444444;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+    </head>
+<body>
+
+    <header>
+        <h1>📁 Comandos Esenciales para Gestionar Directorios y Archivos en Linux</h1>
+        <p>Aprende a navegar y manipular el sistema de archivos Linux de forma efectiva.</p>
+    </header>
+
+    <main>
+        <div class="resource-link">
+            <p>🔗 <strong>Recurso Interactivo:</strong> Si quieres practicar estos comandos en un entorno real, visita:</p>
+            <a href="https://labex.io/labs/linux-your-first-linux-lab-270253?course=quick-start-with-linux" target="_blank">
+                LabEx: Quick Start with Linux
+            </a>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'Esenciales')">Comandos Esenciales</button>
+            <button class="tab-button" onclick="openTab(event, 'Consejos')">Consejos Rápidos</button>
+        </div>
+
+        <div id="Esenciales" class="tab-content active">
+            
+            <h2>Comandos de Directorio (Navegación y Gestión)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo de Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>pwd</code></td><td><b>P</b>rint <b>W</b>orking <b>D</b>irectory. Muestra la <b>ruta absoluta</b> del directorio actual.</td><td><code>pwd</code></td></tr>
+                    <tr><td><code>ls</code></td><td><b>L</b>i<b>s</b>t. Muestra el contenido del directorio actual.</td><td><code>ls -lha</code></td></tr>
+                    <tr><td><code>cd</code></td><td><b>C</b>hange <b>D</b>irectory. Cambia al directorio especificado.</td><td><code>cd Documentos</code></td></tr>
+                    <tr><td><code>cd ..</code></td><td>Sube un nivel (va al directorio padre).</td><td><code>cd ..</code></td></tr>
+                    <tr><td><code>cd ~</code></td><td>Vuelve al <b>directorio personal</b> (Home).</td><td><code>cd ~</code></td></tr>
+                    <tr><td><code>mkdir</code></td><td><b>M</b>a<b>k</b>e <b>Dir</b>ectory. Crea un <b>nuevo directorio</b>.</td><td><code>mkdir Proyectos</code></td></tr>
+                    <tr><td><code>rm -r</code></td><td><b>R</b>e<b>m</b>ove <b>r</b>ecursivo. <b>Elimina un directorio y su contenido</b> (¡Usar con precaución!).</td><td><code>rm -r Antiguo</code></td></tr>
+                    <tr><td><code>mv</code></td><td><b>M</b>o<b>v</b>e. <b>Mueve o renombra</b> un directorio.</td><td><code>mv temp nuevo_nombre</code></td></tr>
+                </tbody>
+            </table>
+
+            <h2>Comandos de Archivo (Creación, Visualización y Copia)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo de Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>touch</code></td>
+                        <td>Crea un <b>archivo vacío</b> o actualiza la marca de tiempo de uno existente.</td>
+                        <td><code>touch mi_archivo.txt</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>echo ></code></td>
+                        <td>Crea un archivo escribiendo una cadena de texto dentro de él (sobrescribe si existe).</td>
+                        <td><code>echo "Hola mundo" > saludo.txt</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>cat > archivo</code></td>
+                        <td>Escribe el texto que desees. Puedes presionar <b>Enter</b> para escribir en nuevas líneas. Cuando termines, presiona <b>Ctrl + D</b> para guardar el archivo y salir. Si el archivo ya existe, <b>cat ></b> lo sobrescribirá. Para añadir al final, usa <b>>></b></td>
+                        <td><code>cat > mi_archivo.txt</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>cp</code></td>
+                        <td><b>Copia</b> un archivo de una ubicación a otra.</td>
+                        <td><code>cp archivo.txt /tmp/</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>mv</code></td>
+                        <td><b>Mueve</b> o <b>renombra</b> un archivo.</td>
+                        <td><code>mv original.doc destino.doc</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>rm</code></td>
+                        <td><b>Elimina</b> (borra) un archivo.</td>
+                        <td><code>rm basura.txt</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div id="Consejos" class="tab-content">
+            <h2>💡 Consejos Rápidos</h2>
+            <ul>
+                <li>Una <b>ruta absoluta</b> comienza con <code>/</code> (la raíz del sistema), por ejemplo: <code>/home/usuario/Documentos</code>.</li>
+                <li>Una <b>ruta relativa</b> es la ruta desde donde estás actualmente, por ejemplo: <code>Documentos</code>.</li>
+                <li>El <b>punto simple</b> (<code>.</code>) se refiere al <b>directorio actual</b>.</li>
+                <li>El <b>doble punto</b> (<code>..</code>) se refiere al <b>directorio padre</b> (superior).</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Ocultar todos los contenidos de las pestañas
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Eliminar la clase "active" de todos los botones
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Mostrar el contenido de la pestaña actual y añadir "active" al botón
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Abre la pestaña "Esenciales" por defecto al cargar
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".tab-button").click();
+        });
+    </script>
+
+</body>
+</html>
