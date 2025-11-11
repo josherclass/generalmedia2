@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Linux</title>
+    <title>Terminal</title>
     
     <style>
         /* Variables de Color inspiradas en Terminal (Dark Mode) */
@@ -106,8 +106,9 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            margin-bottom: 30px; /* Separación entre tablas */
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
         }
 
         th, td {
@@ -141,10 +142,20 @@
             border-bottom: 1px dotted #444444;
             padding-bottom: 5px;
         }
+        h3 {
+            color: var(--color-accent);
+            margin-top: 30px;
+        }
+        h4 {
+            color: var(--color-text-primary);
+            margin-top: 15px;
+        }
 
         ul {
             list-style-type: disc;
             margin-left: 20px;
+            padding-left: 0;
+            margin-bottom: 30px;
         }
         ul li {
             margin-bottom: 5px;
@@ -169,6 +180,7 @@
         <div class="tabs">
             <button class="tab-button active" onclick="openTab(event, 'Esenciales')">Comandos Esenciales</button>
             <button class="tab-button" onclick="openTab(event, 'Consejos')">Consejos Rápidos</button>
+            <button class="tab-button" onclick="openTab(event, 'Ejercicios')">Ejercicios Prácticos</button>
         </div>
 
         <div id="Esenciales" class="tab-content active">
@@ -247,6 +259,132 @@
                 <li>El <b>punto simple</b> (<code>.</code>) se refiere al <b>directorio actual</b>.</li>
                 <li>El <b>doble punto</b> (<code>..</code>) se refiere al <b>directorio padre</b> (superior).</li>
             </ul>
+        </div>
+        
+        <div id="Ejercicios" class="tab-content">
+            <h2>Ejercicios Básicos para la Consola de Linux</h2>
+            <p>Este conjunto de ejercicios te ayudará a familiarizarte con los comandos más comunes y esenciales de la terminal de Linux.</p>
+
+            <h3>Ejercicio 1: Navegación y Ubicación</h3>
+            <p>Objetivo: Saber dónde estás en el sistema de archivos y cambiar de directorio.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>pwd</code></td><td>Imprime el directorio de trabajo actual (<b>P</b>rint <b>W</b>orking <b>D</b>irectory).</td></tr>
+                    <tr><td><code>ls</code></td><td>Lista el contenido del directorio actual.</td></tr>
+                    <tr><td><code>cd ~</code></td><td>Cambia al directorio 'Home' del usuario.</td></tr>
+                    <tr><td><code>cd /</code></td><td>Cambia al directorio raíz del sistema.</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea:</h4>
+            <ul>
+                <li>Usa <code>pwd</code> para verificar tu ubicación actual.</li>
+                <li>Usa <code>cd ~</code> para asegurar que estás en tu directorio personal.</li>
+                <li>Usa <code>ls</code> para ver qué hay dentro.</li>
+                <li>Usa <code>cd /</code> y luego <code>ls</code> para ver los directorios principales del sistema.</li>
+                <li>Vuelve a tu directorio personal usando <code>cd ~</code>.</li>
+            </ul>
+            
+            <h3>Ejercicio 2: Creación de Directorios y Archivos</h3>
+            <p>Objetivo: Crear una estructura básica de carpetas y un archivo vacío.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>mkdir</code></td><td>Crea un nuevo directorio.</td></tr>
+                    <tr><td><code>touch</code></td><td>Crea un archivo vacío (o actualiza su marca de tiempo).</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea:</h4>
+            <ul>
+                <li>Crea un nuevo directorio llamado <code>practica</code> dentro de tu 'Home' con <code>mkdir practica</code>.</li>
+                <li>Accede a ese nuevo directorio con <code>cd practica</code>.</li>
+                <li>Dentro de <code>practica</code>, crea dos nuevos directorios: <code>documentos</code> y <code>scripts</code>.</li>
+                <li>Crea un archivo vacío llamado <code>README.txt</code> con <code>touch README.txt</code>.</li>
+                <li>Usa <code>ls</code> para confirmar la estructura.</li>
+            </ul>
+
+            <h3>Ejercicio 3: Listado Detallado y Oculto</h3>
+            <p>Objetivo: Aprender a usar opciones (flags) con el comando <code>ls</code> para obtener más información.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>ls -l</code></td><td>Lista el contenido en formato largo (long listing), mostrando permisos, propietario, tamaño y fecha.</td></tr>
+                    <tr><td><code>ls -a</code></td><td>Muestra todos los archivos, incluyendo los <b>ocultos</b> (que empiezan con un punto, como <code>.bashrc</code>).</td></tr>
+                    <tr><td><code>ls -la</code></td><td>Combina ambas opciones.</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea (desde el directorio <code>practica</code>):</h4>
+            <ul>
+                <li>Usa <code>ls -l</code> para ver los detalles de <code>documentos</code>, <code>scripts</code> y <code>README.txt</code>.</li>
+                <li>Usa <code>ls -a</code> para ver los archivos ocultos (<code>.</code> y <code>..</code>) que siempre existen.</li>
+                <li>Usa <code>ls -la</code> para ver toda la información junta.</li>
+            </ul>
+
+            <h3>Ejercicio 4: Copiar Archivos</h3>
+            <p>Objetivo: Duplicar un archivo dentro del mismo directorio.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>cp</code></td><td>Copia archivos o directorios.</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea (desde el directorio <code>practica</code>):</h4>
+            <ul>
+                <li>Copia el archivo <code>README.txt</code> y nómbralo <code>LICENCIA.txt</code>. <code>cp README.txt LICENCIA.txt</code></li>
+                <li>Confirma la existencia de ambos archivos con <code>ls</code>.</li>
+                <li>Copia <code>LICENCIA.txt</code> dentro del directorio <code>documentos</code>. <code>cp LICENCIA.txt documentos/</code></li>
+                <li>Usa <code>ls documentos/</code> para verificar la copia.</li>
+            </ul>
+
+            <h3>Ejercicio 5: Mover y Renombrar Archivos</h3>
+            <p>Objetivo: Mover un archivo de ubicación y renombrarlo.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>mv</code></td><td>Mueve o renombra archivos y directorios.</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea (desde el directorio <code>practica</code>):</h4>
+            <ul>
+                <li>Mueve el archivo <code>README.txt</code> al directorio <code>documentos</code>. <code>mv README.txt documentos/</code></li>
+                <li>Confirma que <code>README.txt</code> ya no está en <code>practica</code> (<code>ls</code>) y sí en <code>documentos</code> (<code>ls documentos/</code>).</li>
+                <li>Renombra el directorio <code>scripts</code> a <code>programas</code>. <code>mv scripts programas</code></li>
+                <li>Confirma el cambio de nombre con <code>ls</code>.</li>
+            </ul>
+            
+            <h3>Ejercicio 6: Visualización de Contenido de Archivos</h3>
+            <p>Objetivo: Ver el contenido de un archivo sin abrirlo en un editor.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>cat</code></td><td>Muestra el contenido completo de un archivo.</td></tr>
+                    <tr><td><code>echo</code></td><td>Muestra un mensaje en la terminal, a menudo usado con el operador <code>></code> para escribir en archivos.</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea (desde el directorio <code>practica</code>):</h4>
+            <ul>
+                <li>Usa <code>echo</code> y el operador de redirección <code>></code> para escribir una línea en un archivo (esto sobreescribe el contenido). <code>echo "Este es un script de prueba." > programas/script1.sh</code></li>
+                <li>Usa <code>cat programas/script1.sh</code> para ver el contenido.</li>
+                <li>Usa <code>echo</code> y el operador de adición <code>>></code> para añadir una línea al final (esto <b>NO</b> sobreescribe). <code>echo "Esta es la segunda línea." >> programas/script1.sh</code></li>
+                <li>Vuelve a usar <code>cat programas/script1.sh</code> para ver las dos líneas.</li>
+            </ul>
+
+            <h3>Ejercicio 7: Búsqueda de Archivos</h3>
+            <p>Objetivo: Localizar archivos o directorios por nombre.</p>
+            <table>
+                <thead><tr><th>Comando</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>find</code></td><td>Busca archivos en una jerarquía de directorios.</td></tr>
+                    <tr><td><code>grep</code></td><td>Busca un patrón de texto dentro de archivos.</td></tr>
+                </tbody>
+            </table>
+            <h4>Tarea (desde tu 'Home', <code>cd ~</code>):</h4>
+            <ul>
+                <li>Busca el archivo <code>LICENCIA.txt</code> dentro de <code>practica</code> y sus subdirectorios. <code>find practica -name LICENCIA.txt</code></li>
+                <li>Busca cualquier archivo que termine en <code>.sh</code> dentro de <code>practica</code>. <code>find practica -name "*.sh"</code></li>
+                <li>Busca la palabra "script" dentro del archivo <code>practica/programas/script1.sh</code>. <code>grep "script" practica/programas/script1.sh</code></li>
+            </ul>
+            
         </div>
     </main>
 
