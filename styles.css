@@ -75,12 +75,12 @@ header p {
 
 /* Estilo específico para Clase 3 */
 .button-clase3 {
-    background-color: #56CC8F; /* Verde */
+    background-color: #53D48D; /* Verde */
     color: #333;
 }
 
 .button-clase3:hover {
-    background-color: #46A674;
+    background-color: #3EAD70;
     transform: translateY(-2px); /* Efecto al pasar el ratón */
 }
 
