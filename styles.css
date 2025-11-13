@@ -84,6 +84,17 @@ header p {
     transform: translateY(-2px); /* Efecto al pasar el ratón */
 }
 
+/* Estilo específico para Clase 4 */
+.button-clase4 {
+    background-color: #391447; /* Verde */
+    color: #333;
+}
+
+.button-clase4:hover {
+    background-color: #391447;
+    transform: translateY(-2px); /* Efecto al pasar el ratón */
+}
+
 footer {
     background-color: #333;
     color: white;
